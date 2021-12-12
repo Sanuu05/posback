@@ -82,7 +82,7 @@ route.post('/addproduct', async (req, res) => {
 })
 route.patch('/updateproduct', async (req, res) => {
     try {
-        const { _id, name, stock, code, costPrice, sellPrice, category, tax,description,barcode } = req.body
+        const { _id, name, stock, code, costPrice, sellPrice, category, tax,description,barcode,img } = req.body
         console.log("update")
         try {
             const findx = await Product.findById(_id)
@@ -90,7 +90,7 @@ route.patch('/updateproduct', async (req, res) => {
             if (findx.code === code) {
                 // console.log('true')
                 const update = await Product.findByIdAndUpdate(_id, {
-                    name, stock, code, costPrice, sellPrice, category, tax,description
+                    name, stock, code, costPrice, sellPrice, category, tax,description,img
                 },{
                     new:true
                 })
