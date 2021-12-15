@@ -46,6 +46,22 @@ route.get('/cath', async (req, res) => {
     // console.log(data)
     res.json(data)
 })
+route.patch('/updateprocath',async(req,res)=>{
+    try {
+        const {_id, category} = req.body
+        if(_id){
+            const newcath = await Cath.findById(_id)
+            if(newcath){
+                res.status(400).json('category already exists')
+            }else{
+                const update = await Cath.findByIdAndUpdate(_id,{category:category})
+                res.json("updated Succesfully")
+            }
+        }
+    } catch (error) {
+        
+    }
+})
 
 route.post('/addproduct', async (req, res) => {
     try {

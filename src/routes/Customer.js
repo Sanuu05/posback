@@ -131,6 +131,22 @@ route.delete('/delcustomer/:id', async (req, res) => {
 
     }
 })
+route.patch('/updatecuscath',async(req,res)=>{
+    try {
+        const {_id, category} = req.body
+        if(_id){
+            const newcath = await Cuscath.findById(_id)
+            if(newcath){
+                res.status(400).json('category already exists')
+            }else{
+                const update = await Cuscath.findByIdAndUpdate(_id,{category:category})
+                res.json("updated Succesfully")
+            }
+        }
+    } catch (error) {
+        
+    }
+})
 
 
 
