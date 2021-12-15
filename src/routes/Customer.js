@@ -135,7 +135,7 @@ route.patch('/updatecuscath',async(req,res)=>{
     try {
         const {_id, category} = req.body
         if(_id){
-            const newcath = await Cuscath.findById(_id)
+            const newcath = await Cuscath.findOne({category:category})
             if(newcath){
                 res.status(400).json('category already exists')
             }else{
