@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const port =  8080
+const port = process.env.PORT || 8080
 // process.env.PORT ||
 const db = require('./db/db')
 const resgistration = require('./routes/Registration')
