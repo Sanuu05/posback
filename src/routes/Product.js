@@ -67,11 +67,15 @@ route.post('/addproduct', async (req, res) => {
     try {
         const { name, code, stock, sellPrice, costPrice, category, tax, description, barcode,img } = req.body
         console.log(name?.length)
-        if (name && code && stock && sellPrice && costPrice && category && tax && description && barcode && img) {
+        if (name && code && altcode && stock && sellPrice && costPrice && category && tax && description && barcode && img) {
             const unicode = await Product.findOne({ code })
             if (unicode) {
                 res.status(400).json('code already exists')
             } else {
+                const unicodealt = await Product.findOne({ altcode })
+                if(unicodealt){
+                    res.status(400).json('Alternate code already exists') 
+                }else{
                 const unibarcode = await Product.findOne({ barcode })
                 if (unibarcode) {
                     res.status(400).json(`barcode already exists , name: ${unibarcode?.name}`)
@@ -84,6 +88,7 @@ route.post('/addproduct', async (req, res) => {
                     res.json("Product Added Sucessfully")
 
                 }
+            }
 
             }
 
@@ -98,7 +103,7 @@ route.post('/addproduct', async (req, res) => {
 })
 route.patch('/updateproduct', async (req, res) => {
     try {
-        const { _id, name, stock, code, costPrice, sellPrice, category, tax,description,barcode,img } = req.body
+        const { _id, name, stock, code,altcode, costPrice, sellPrice, category, tax,description,barcode,img } = req.body
         console.log("update")
         try {
             const findx = await Product.findById(_id)
@@ -121,10 +126,15 @@ route.patch('/updateproduct', async (req, res) => {
                 if (findx) {
                     res.status(400).json('code already exists')
                 } else {
+                    const findxalt = await Product.findOne({ altcode })
+                    if(findxalt){
+                        res.status(400).json('Alternate code already exists')
+                    }else{
                     const update = await Product.findByIdAndUpdate(_id, {
                         name, stock, code, costPrice, sellPrice, category, taxdescription,barcode ,description
                     })
                     res.json("Updated Sucesfully")
+                }
 
                 }
             }

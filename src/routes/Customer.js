@@ -8,13 +8,13 @@ route.get('/',(req,res)=>{
 })
 route.post('/add', async(req,res)=>{
     try {
-        const {name,mobile, address1,address2,paymentterms,creditlimitdays,creditlimit,category,barcode,cusstatus,code } = req.body
+        const {name,mobile, address1,address2,paymentterms,creditlimitdays,creditlimit,category,barcode,cusstatus,code,altcode } = req.body
         console.log(req.body)
-        if(name &&  mobile && address1 && address2 && code && paymentterms && creditlimitdays && creditlimit && category && barcode && cusstatus){
+        if(name &&  mobile && address1 && address2 && code && paymentterms && creditlimitdays && creditlimit && category && altcode && barcode && cusstatus){
             console.log('helllo')
             const addcus = new Customer({
                 name,
-                mobile,address1,address2,code,paymentterms,creditlimit,creditlimitdays,category,barcode,cusstatus
+                mobile,address1,address2,code,paymentterms,creditlimit,creditlimitdays,category,barcode,cusstatus,altcode
             })
             const save = await addcus.save()
             res.json('Customer Added Succesfully')
@@ -83,7 +83,7 @@ route.delete('/delcuscath/:id', async (req, res) => {
 
 route.patch('/updatecustomer', async (req, res) => {
     try {
-        const { _id, name,mobile, address1,address2,paymentterms,creditlimitdays,creditlimit,category,barcode,cusstatus,code } = req.body
+        const { _id, name,mobile, address1,address2,paymentterms,creditlimitdays,creditlimit,category,barcode,cusstatus,code ,altcode} = req.body
         console.log("update",req.body)
         try {
             const findx = await Customer.findById(_id)
@@ -103,10 +103,17 @@ route.patch('/updatecustomer', async (req, res) => {
                 if (findx) {
                     res.status(400).json('code already exists')
                 } else {
-                    const update = await Customer.findByIdAndUpdate(_id, {
-                        name,mobile, address1,address2,paymentterms,creditlimitdays,creditlimit,category,barcode,cusstatus,code
-                    })
-                    res.json("Updated Sucesfully")
+                    const findxalt = await Customer.findOne({ altcode })
+                    if(findxalt){
+                        res.status(400).json('alternate code already exists')
+                    }else{
+                        const update = await Customer.findByIdAndUpdate(_id, {
+                            name,mobile, address1,address2,paymentterms,creditlimitdays,creditlimit,category,barcode,cusstatus,code,altcode
+                        })
+                        res.json("Updated Sucesfully")
+
+                    }
+                    
 
                 }
             }

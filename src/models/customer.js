@@ -10,6 +10,10 @@ const normalSchema = mongoose.Schema({
         type:String,
         required:true
     },
+    altcode:{
+        type:String,
+        required:true
+    },
     paymentterms:{
         type:String,
         required:true
