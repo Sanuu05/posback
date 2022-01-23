@@ -11,6 +11,32 @@ const productSchema = mongoose.Schema({
     date:{
         type:String,
         require:true
+    },
+    year:{
+        type:String,
+        require:true
+    },
+    month:{
+        type:String,
+        require:true
+    },
+    sell:{
+        type:Number,
+        require:true
+    },
+    cost:{
+        type:Number,
+        require:true
+        
+    },
+    income:{
+        type:Number,
+        require:true
+        
+    },
+    cus:{
+        type:Object,
+        required:true,
     }
 })
 

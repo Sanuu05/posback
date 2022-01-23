@@ -19,5 +19,8 @@
     "mongoose": "^6.0.13",
     "nice-invoice": "^1.1.5",
     "pusher": "^5.0.0"
+  },
+  "devDependencies": {
+    "ws": "3.3.2"
   }
 }

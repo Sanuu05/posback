@@ -27,7 +27,7 @@ db.once('open', () => {
     const msgCollection = db.collection('products');
     const changeStream = msgCollection.watch()
     changeStream.on('change', (change)=>{
-        console.log(change)
+        // console.log(change)
         if(change.operationType==='insert'){
             const msgdetail = change.fullDocument;
             pusher.trigger('pdtinsert','insert',{
@@ -47,29 +47,29 @@ db.once('open', () => {
             })
         }
     })
-    console.log('db coonected again')
-    const msgCollection1 = db.collection('customers');
-    const changeStream1 = msgCollection1.watch()
-    changeStream1.on('change', (change)=>{
-        console.log(change)
-        if(change.operationType==='insert'){
-            const msgdetail = change.fullDocument;
-            pusher.trigger('pdtinsert','insert',{
-                user:msgdetail.name
-            })
-        }
-        if(change.operationType==='update'){
-            const msgdetail = change.documentKey;
-            pusher.trigger('pdtupdate','update',{
-                user:msgdetail._id
-            })
-        }
-        if(change.operationType==='delete'){
-            const msgdetail = change.documentKey;
-            pusher.trigger('pdtdelete','delete',{
-                user:msgdetail
-            })
-        }
-    })
+    // console.log('db coonected again')
+    // const msgCollection1 = db.collection('customers');
+    // const changeStream1 = msgCollection1.watch()
+    // changeStream1.on('change', (change)=>{
+    //     console.log(change)
+    //     if(change.operationType==='insert'){
+    //         const msgdetail = change.fullDocument;
+    //         pusher.trigger('pdtinsert','insert',{
+    //             user:msgdetail.name
+    //         })
+    //     }
+    //     if(change.operationType==='update'){
+    //         const msgdetail = change.documentKey;
+    //         pusher.trigger('pdtupdate','update',{
+    //             user:msgdetail._id
+    //         })
+    //     }
+    //     if(change.operationType==='delete'){
+    //         const msgdetail = change.documentKey;
+    //         pusher.trigger('pdtdelete','delete',{
+    //             user:msgdetail
+    //         })
+    //     }
+    // })
 })
 

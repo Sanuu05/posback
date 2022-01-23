@@ -8,11 +8,15 @@ const normalSchema = mongoose.Schema({
     },
     code:{
         type:String,
-        required:true
+        required:true,
+        trim:true,
+        unique:true
     },
     altcode:{
         type:String,
-        required:true
+        required:true,
+        trim:true,
+        unique:true
     },
     paymentterms:{
         type:String,
